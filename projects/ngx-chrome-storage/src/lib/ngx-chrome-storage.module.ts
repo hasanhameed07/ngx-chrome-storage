@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { Settings } from './settings.class';
 import { NgxChromeStorageService } from './ngx-chrome-storage.service';
 
-
+// @dynamic
 @NgModule({
   declarations: [],
   imports: [
