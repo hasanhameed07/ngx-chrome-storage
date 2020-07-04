@@ -1,15 +1,13 @@
-import { Injectable, NgZone, Optional } from '@angular/core';
+import { Injectable, Optional } from '@angular/core';
 import { Settings } from './settings.class';
 import { Observable } from 'rxjs/internal/Observable';
 import { Observer } from 'rxjs/internal/types';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class NgxChromeStorageService {
   storeKey = ''; // chrome storage key
   config: any;     // holds settings
-  constructor(private zone: NgZone, @Optional() settings: Settings) {
+  constructor(@Optional() settings: Settings) {
     const usethisSettings = (settings) ? settings : new Settings();
     this.config = usethisSettings.data;
     this.storeKey = usethisSettings.storeKey;
