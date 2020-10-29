@@ -3,7 +3,7 @@ import { PrayerTimingsService } from './prayer-timings.service';
 import { NgxChromeStorageService } from 'ngx-chrome-storage';
 
 @Component({
-  selector: 'cs-prayer-timings',
+  selector: 'ayat-prayer-timings',
   templateUrl: './prayer-timings.component.html',
   styleUrls: ['./prayer-timings.component.css']
 })
@@ -20,7 +20,7 @@ export class PrayerTimingsComponent implements OnInit {
   }
 
   loadPrayerTimings() {
-    this.prayer.getTimings(this.settings.config.userLocation, this.settings.config.userPrayerMethod)
+    this.prayer.getTimings(this.settings.config?.userLocation, this.settings.config?.userPrayerMethod)
     .subscribe(
       data => {
         this.prayers = data;

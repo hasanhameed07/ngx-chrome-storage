@@ -4,7 +4,7 @@ import { NgxChromeStorageService } from 'ngx-chrome-storage';
 import {Router, Event, NavigationEnd} from '@angular/router';
 
 @Component({
-  selector: 'cs-root-container',
+  selector: 'ayat-root-container',
   templateUrl: './root.component.html'
 })
 export class RootComponent implements OnInit {
@@ -42,7 +42,7 @@ export class RootComponent implements OnInit {
               }
           });
 
-    this.backgroundImage = this.settings.config.backgroundImage;
+    this.backgroundImage = this.settings.config?.backgroundImage;
     this.setBackground();
     this.settings.onChange().subscribe((data) => {
       if (data) {
@@ -56,7 +56,7 @@ export class RootComponent implements OnInit {
   }
 
   setBackground() {
-    if (this.settings.config.backgroundImage && navigator.onLine) {
+    if (this.settings.config?.backgroundImage && navigator.onLine) {
       this.flickr.getImages()
         .subscribe((image: any) => {
           if (image) {
