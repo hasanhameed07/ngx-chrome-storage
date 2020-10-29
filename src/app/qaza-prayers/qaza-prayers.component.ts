@@ -4,7 +4,7 @@ import { Prayer } from './prayer.interface';
 import { NgxChromeStorageService } from 'ngx-chrome-storage';
 
 @Component({
-  selector: 'cs-qaza-prayers',
+  selector: 'ayat-qaza-prayers',
   templateUrl: './qaza-prayers.component.html',
   styleUrls: ['./qaza-prayers.component.css']
 })

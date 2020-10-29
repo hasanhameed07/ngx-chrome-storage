@@ -5,7 +5,7 @@ import { NgxChromeStorageService } from 'ngx-chrome-storage';
 
 
 @Component({
-  selector: 'cs-settings',
+  selector: 'ayat-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css']
 })
@@ -31,12 +31,12 @@ export class SettingsComponent implements OnInit {
     ];
     this.audioVoices = this.quran.getAudioVoices();
     this.form = this.fb.group({
-      backgroundImage: [this.settings.config.backgroundImage],
-      translation: [this.settings.config.translation],
-      showEnglish: [this.settings.config.showEnglish],
-      userLocation: [this.settings.config.userLocation],
-      userPrayerMethod: [this.settings.config.userPrayerMethod],
-      audioVoice: [this.settings.config.audioVoice]
+      backgroundImage: [this.settings.config?.backgroundImage],
+      translation: [this.settings.config?.translation],
+      showEnglish: [this.settings.config?.showEnglish],
+      userLocation: [this.settings.config?.userLocation],
+      userPrayerMethod: [this.settings.config?.userPrayerMethod],
+      audioVoice: [this.settings.config?.audioVoice]
     });
     this.subcribeToFormChanges();
   }

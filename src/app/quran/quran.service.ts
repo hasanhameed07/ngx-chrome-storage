@@ -160,6 +160,14 @@ export class QuranService {
       "format": "audio",
       "type": "translation"
     }, {
+      "identifier": "ar.minshawimujawwad",
+      "language": "ar",
+      "name": "محمد صديق المنشاوي (المجود)",
+      "englishName": "Minshawy (Mujawwad)",
+      "format": "audio",
+      "type": "translation",
+      "direction": null
+    }, {
       "identifier": "ar.muhammadayyoub",
       "language": "ar",
       "name": "Muhammad Ayyoub",
@@ -222,6 +230,14 @@ export class QuranService {
       "englishName": "Youssouf Leclerc",
       "format": "audio",
       "type": "versebyverse"
+    }, {
+      "identifier": "ar.aymanswoaid",
+      "language": "ar",
+      "name": "أيمن سويد",
+      "englishName": "Ayman Sowaid",
+      "format": "audio",
+      "type": "versebyverse",
+      "direction": null
     }]`;
 
 
@@ -250,6 +266,7 @@ export class QuranService {
         const arabicQuran = data.data[0];
         const returnObj = {
           text: arabicQuran.text,
+          textArr: arabicQuran.text.split(' '),
           number: arabicQuran.numberInSurah,
           surah: arabicQuran.surah.englishName,
           translationText: englishTranslation ? data.data[1].text : '',
@@ -261,6 +278,35 @@ export class QuranService {
     );
   }
 
+  getAyahTranslations(verse: number, ayahTextAr, showEnglish: boolean, secondTranslation: string) {
+    if (navigator.onLine === false) {
+      return of([]);
+    }
+    const ayahWords = ayahTextAr.split(' ').filter(word => word.length > 1);
+    secondTranslation = (secondTranslation && secondTranslation !== 'none') ? secondTranslation : '';
+    const englishTranslation = (showEnglish) ? 'en.daryabadi,' : '';
+    return this.http.get<{
+      data: { text: string }
+    }>(this.ayahUrl + verse + '/editions/quran-wordbyword,' + englishTranslation + secondTranslation)
+    .pipe(
+      map(response => {
+        const { text } = response.data[0];
+        const translationsHash = {};
+        const wordsChunk = text.split('$');
+        wordsChunk.map((chunk, index) => {
+          const chunkElements = chunk.split('|');
+          const key = chunkElements[0]?.trim();
+          const val = chunkElements[1]?.trim();
+          const ayahWord = ayahWords[index];
+          if (key && val) {
+            translationsHash[ayahWord] = val;
+          }
+        })
+        return translationsHash;
+      })
+    )
+  }
+
   getTranslations(): object[] {
     return _.sortBy(this.quranList, 'name');
   }
@@ -270,7 +316,7 @@ export class QuranService {
   }
 
   getAudio(ayahNum: number) {
-    return new Audio('http://cdn.alquran.cloud/media/audio/ayah/' + this.settings.config.audioVoice + '/' + ayahNum);
+    return new Audio('http://cdn.alquran.cloud/media/audio/ayah/' + this.settings.config?.audioVoice + '/' + ayahNum);
   }
 
 }

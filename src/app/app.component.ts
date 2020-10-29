@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'cs-root',
+  selector: 'ayat-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
